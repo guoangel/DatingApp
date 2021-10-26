@@ -2,7 +2,8 @@
     <div class="container">
         <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Dating App</a>
 
-        <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
+        <ul class="navbar-nav mr-auto">
+            <ng-container *ngIf="accountService.currentUser$ | async">
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/members' routerLinkActive='active' >Matches</a>
                 </li>
@@ -12,14 +13,15 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/messages'routerLinkActive='active' >Messages</a>
                 </li>
+            </ng-container>
             <li class="nav-item">
                 <a class="nav-link" routerLink='/errors'routerLinkActive='active' >Errors</a>
             </li>
         </ul>
-        <div class="btn-group"  *ngIf="accountService.currentUser$ | async" dropdown>
+        <div class="btn-group"  *ngIf="(accountService.currentUser$ | async) as user" dropdown>
         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                 aria-controls="dropdown-basic">
-            Welcome user <span class="caret"></span>
+            Welcome {{user.username | titlecase}} <span class="caret"></span>
         </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="button-basic">
